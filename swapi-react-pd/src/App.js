@@ -2,9 +2,13 @@ import ButtonsFromEndpoints from "./ButtonsMain";
 import "./App.css";
 
 function App() {
-  <div className="App">
-    <ButtonsFromEndpoints />
-  </div>;
+  return (
+    <div className="App">
+      <ButtonsFromEndpoints />
+    </div>
+  );
 }
 
 export default App;
+
+// test test
