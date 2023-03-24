@@ -56,3 +56,4 @@ export default ButtonsFromEndpoints;
 // gdy komponent jest zamontowany (tj. nie ma zależności, których wartości się zmieniają).
 // Jeśli chcesz, aby efekt był wywoływany przy zmianie wartości określonych zależności, należy podać je jako argumenty w drugim parametrze.
 // test
+//
