@@ -1,13 +1,11 @@
 import axios from "axios";
 import Button from "@mui/material/Button";
-import { useEffect } from "react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const BaseUrl = "https://swapi.dev/api";
 
-const ButtonContainer = () => {
+const ButtonContainer = ({ dataContainerSetter }) => {
   const [fetchedData, setFetchedData] = useState([]);
-  const [currentDataContainer, setCurrentDataContainer] = useState([]);
 
   useEffect(() => {
     const fetchData = async (URL) => {
@@ -24,8 +22,14 @@ const ButtonContainer = () => {
   }, []);
   return (
     <div>
-      {Object.keys(fetchedData).map((key) => (
-        <Button variant="outlined" key={key}>
+      {Object.entries(fetchedData).map(([key, value]) => (
+        <Button
+          variant="outlined"
+          key={key}
+          onClick={() => {
+            handleClick(dataContainerSetter, value);
+          }}
+        >
           {key}
         </Button>
       ))}
@@ -34,3 +38,16 @@ const ButtonContainer = () => {
 };
 
 export default ButtonContainer;
+
+const handleClick = async (dataContainerSetter, URL) => {
+  let data;
+  try {
+    const response = await axios.get(URL);
+    data = response.data.results;
+    console.log(data);
+  } catch (error) {
+    console.log(error.response);
+  }
+
+  dataContainerSetter(data);
+};
