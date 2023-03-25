@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 
 const BaseUrl = "https://swapi.dev/api";
 
-const ButtonContainer = ({ dataContainerSetter }) => {
+const ButtonsContainer = ({ dataContainerSetter }) => {
   const [fetchedData, setFetchedData] = useState([]);
 
   useEffect(() => {
@@ -12,7 +12,6 @@ const ButtonContainer = ({ dataContainerSetter }) => {
       try {
         const response = await axios.get(URL);
         const data = response.data;
-        console.log(data);
         setFetchedData(data);
       } catch (error) {
         console.log(error.response);
@@ -37,14 +36,13 @@ const ButtonContainer = ({ dataContainerSetter }) => {
   );
 };
 
-export default ButtonContainer;
+export default ButtonsContainer;
 
 const handleClick = async (dataContainerSetter, URL) => {
   let data;
   try {
     const response = await axios.get(URL);
     data = response.data.results;
-    console.log(data);
   } catch (error) {
     console.log(error.response);
   }

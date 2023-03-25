@@ -10,11 +10,13 @@ import {
 } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import RootLayout from "./Layouts/RootLayout";
+import Collections from "./Pages/Collections";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />
+      <Route path="collections" element={<Collections />} />
     </Route>
   )
 );

@@ -1,11 +1,13 @@
-import ButtonContainer from "../Components/ButtonContainer";
 import { useState } from "react";
+import { Button } from "@mui/material";
+import { Link } from "react-router-dom";
 
 function HomePage() {
-  const [collectionData, setCollectionData] = useState([]);
   return (
     <div className="HomePage">
-      <ButtonContainer dataContainerSetter={setCollectionData} />
+      <Button variant="outlined">
+        <Link to="collections">Collections</Link>
+      </Button>
     </div>
   );
 }
