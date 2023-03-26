@@ -1,5 +1,4 @@
 import { Button } from "@mui/material";
-import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 
 export default function CollectionTable({ dataContainer }) {

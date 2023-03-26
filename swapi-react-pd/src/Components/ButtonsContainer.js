@@ -1,11 +1,12 @@
 import axios from "axios";
 import Button from "@mui/material/Button";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const BaseUrl = "https://swapi.dev/api";
 
 const ButtonsContainer = ({ dataContainerSetter }) => {
+  const navigate = useNavigate();
   const [fetchedData, setFetchedData] = useState([]);
   useEffect(() => {
     const fetchData = async (URL) => {
@@ -20,6 +21,18 @@ const ButtonsContainer = ({ dataContainerSetter }) => {
     fetchData(BaseUrl);
   }, []);
 
+  const handleClick = async (dataContainerSetter, URL) => {
+    let data;
+    try {
+      const response = await axios.get(URL);
+      data = response.data.results;
+    } catch (error) {
+      console.log(error.response);
+    }
+
+    dataContainerSetter(data);
+  };
+
   return (
     <div>
       {Object.entries(fetchedData).map(([key, value]) => (
@@ -28,9 +41,10 @@ const ButtonsContainer = ({ dataContainerSetter }) => {
           key={key}
           onClick={() => {
             handleClick(dataContainerSetter, value);
+            navigate(`/collections/${key}`);
           }}
         >
-          <Link to={"/collections/" + key}>{key}</Link>
+          {key}
         </Button>
       ))}
     </div>
@@ -38,15 +52,3 @@ const ButtonsContainer = ({ dataContainerSetter }) => {
 };
 
 export default ButtonsContainer;
-
-const handleClick = async (dataContainerSetter, URL) => {
-  let data;
-  try {
-    const response = await axios.get(URL);
-    data = response.data.results;
-  } catch (error) {
-    console.log(error.response);
-  }
-
-  dataContainerSetter(data);
-};
