@@ -1,5 +1,6 @@
 import ButtonsContainer from "../Components/ButtonsContainer";
 import { useState } from "react";
+import { Outlet } from "react-router-dom";
 
 const Collections = () => {
   const [collectionData, setCollectionData] = useState([]);
@@ -7,6 +8,8 @@ const Collections = () => {
   return (
     <div>
       <ButtonsContainer dataContainerSetter={setCollectionData} />
+
+      <Outlet context={collectionData} />
     </div>
   );
 };

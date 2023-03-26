@@ -11,12 +11,15 @@ import {
 import HomePage from "./Pages/HomePage";
 import RootLayout from "./Layouts/RootLayout";
 import Collections from "./Pages/Collections";
+import CollectionTable from "./Pages/CollectionTable";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<RootLayout />}>
       <Route index element={<HomePage />} />
-      <Route path="collections" element={<Collections />} />
+      <Route path="collections" element={<Collections />}>
+        <Route path=":id" element={<CollectionTable />} />
+      </Route>
     </Route>
   )
 );
