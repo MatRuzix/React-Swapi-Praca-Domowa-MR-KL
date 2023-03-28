@@ -1,14 +1,37 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { Button } from "@mui/material";
+import { useNavigate, Outlet } from "react-router-dom";
 
 const RootLayout = () => {
+  const navigate = useNavigate();
   return (
     <div className="root-layout">
       <header>
         <nav>
           <div className="logo"></div>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/">Games</NavLink>
-          <NavLink to="/">Entry Creator</NavLink>
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Games
+          </Button>
+          <Button
+            variant="contained"
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Entry Creator
+          </Button>
         </nav>
       </header>
       <main>

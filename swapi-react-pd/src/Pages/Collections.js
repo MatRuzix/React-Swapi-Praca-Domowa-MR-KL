@@ -1,4 +1,4 @@
-import ButtonsContainer from "../Components/ButtonsContainer";
+import ButtonsContainer from "src/Components/ButtonsContainer";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 

@@ -2,32 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
 import reportWebVitals from "./reportWebVitals";
-import {
-  createBrowserRouter,
-  Route,
-  createRoutesFromElements,
-  RouterProvider,
-} from "react-router-dom";
-import HomePage from "./Pages/HomePage";
-import RootLayout from "./Layouts/RootLayout";
-import Collections from "./Pages/Collections";
-import CollectionTable from "./Pages/CollectionTable";
-
-const router = createBrowserRouter(
-  createRoutesFromElements(
-    <Route path="/" element={<RootLayout />}>
-      <Route index element={<HomePage />} />
-      <Route path="collections" element={<Collections />}>
-        <Route path=":id" element={<CollectionTable />} />
-      </Route>
-    </Route>
-  )
-);
+import App from "./App";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <App />
   </React.StrictMode>
 );
 

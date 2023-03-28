@@ -1,9 +1,9 @@
 import { Button } from "@mui/material";
-import { useNavigate, useParams } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 export default function CollectionTable({ dataContainer }) {
-  const { id } = useParams();
   const navigate = useNavigate();
+  const collectionData = useLoaderData();
 
   const handleClick = () => navigate("/collections");
   return (
@@ -11,7 +11,9 @@ export default function CollectionTable({ dataContainer }) {
       <Button variant="outlined" onClick={handleClick}>
         Return
       </Button>
-      <h2>{id}</h2>
+      {collectionData.results.map(({ name }) => {
+        return <div>{name}</div>;
+      })}
     </div>
   );
 }
