@@ -10,6 +10,7 @@ import Collections from "./Pages/Collections";
 import CollectionTable from "./Pages/CollectionTable";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { collectionLoader } from "./Loaders/collectionLoader";
 
 const BaseUrl = process.env.REACT_APP_BASE_URL;
 
@@ -50,12 +51,3 @@ function App() {
 }
 
 export default App;
-
-const collectionLoader = async (URL) => {
-  try {
-    const response = await axios.get(URL);
-    return response.data;
-  } catch (error) {
-    console.log(error.response);
-  }
-};
