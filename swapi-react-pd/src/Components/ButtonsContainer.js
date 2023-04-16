@@ -1,46 +1,32 @@
-import axios from "axios";
 import Button from "@mui/material/Button";
-import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import fetchData from "../Fetching/fetchData";
+const BaseUrl = "https://swapi.dev/api";
 
-const BaseUrl = process.env.REACT_APP_BASE_URL;
-
-const ButtonsContainer = ({ dataContainerSetter }) => {
+const ButtonsContainer = () => {
   const navigate = useNavigate();
-  const [fetchedData, setFetchedData] = useState([]);
-  useEffect(() => {
-    const fetchData = async (URL) => {
-      try {
-        const response = await axios.get(URL);
-        const data = response.data;
-        setFetchedData(data);
-      } catch (error) {
-        console.log(error.response);
-      }
-    };
-    fetchData(BaseUrl);
-  }, []);
 
-  const handleClick = async (dataContainerSetter, URL) => {
-    let data;
-    try {
-      const response = await axios.get(URL);
-      data = response.data.results;
-    } catch (error) {
-      console.log(error.response);
-    }
+  const fetchedData = useQuery({
+    queryKey: ["collections"],
+    queryFn: () => fetchData(BaseUrl),
+  });
 
-    dataContainerSetter(data);
-  };
+  if (fetchedData.isLoading) {
+    return <h1>Loading...</h1>;
+  }
+
+  if (fetchedData.isError) {
+    return <h2>{JSON.stringify(fetchData.error)}</h2>;
+  }
 
   return (
     <div>
-      {Object.entries(fetchedData).map(([key, value]) => (
+      {Object.entries(fetchedData.data).map(([key, value]) => (
         <Button
           variant="outlined"
           key={key}
-          onClick={() => {
-            handleClick(dataContainerSetter, value);
+          onClick={async () => {
             navigate(`/collections/${key}`);
           }}
         >

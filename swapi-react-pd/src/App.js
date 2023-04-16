@@ -6,16 +6,16 @@ import {
 } from "react-router-dom";
 import HomePage from "./Pages/HomePage";
 import RootLayout from "./Layouts/RootLayout";
-import Collections from "./Pages/Collections";
 import CollectionTable from "./Pages/CollectionTable";
-import { useEffect, useState } from "react";
+import Collections from "./Pages/Collections";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import { collectionLoader } from "./Loaders/collectionLoader";
 
-const BaseUrl = process.env.REACT_APP_BASE_URL;
+const baseUrl = "https://swapi.dev/api";
 
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
+  const [itemsPerPage, setItemsPerPage] = useState(10);
   useEffect(() => {
     const fetchData = async (URL) => {
       try {
@@ -26,8 +26,9 @@ function App() {
         console.log(error.response);
       }
     };
-    fetchData(BaseUrl);
+    fetchData(baseUrl);
   }, []);
+
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path="/" element={<RootLayout />}>
@@ -36,10 +37,13 @@ function App() {
           {Object.entries(fetchedData).map(([key, value]) => (
             <Route
               path={key}
-              element={<CollectionTable />}
-              loader={() => {
-                return collectionLoader(value);
-              }}
+              element={
+                <CollectionTable
+                  queryKey={key}
+                  URL={value}
+                  itemsPerPage={itemsPerPage}
+                />
+              }
               key={key}
             />
           ))}

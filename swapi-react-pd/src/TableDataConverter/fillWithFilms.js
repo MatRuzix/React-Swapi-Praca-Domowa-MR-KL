@@ -1,7 +1,8 @@
-export default async function fillWithFilms(collection) {
+export default function fillWithFilms(collection) {
   const newCollection = [];
   let id = 1;
-  collection.results.forEach((element) => {
+
+  collection.forEach((element) => {
     const newRecord = {
       id: id,
       title: element.title,
