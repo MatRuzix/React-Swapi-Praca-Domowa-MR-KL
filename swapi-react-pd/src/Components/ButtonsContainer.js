@@ -1,8 +1,7 @@
-import axios from "axios";
 import Button from "@mui/material/Button";
 import { useNavigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
-
+import fetchData from "../Fetching/fetchData";
 const BaseUrl = "https://swapi.dev/api";
 
 const ButtonsContainer = () => {
@@ -38,16 +37,6 @@ const ButtonsContainer = () => {
       ))}
     </div>
   );
-};
-
-const fetchData = async (URL) => {
-  try {
-    const response = await axios.get(URL);
-    const data = response.data;
-    return data;
-  } catch (error) {
-    console.log(error.response);
-  }
 };
 
 export default ButtonsContainer;
