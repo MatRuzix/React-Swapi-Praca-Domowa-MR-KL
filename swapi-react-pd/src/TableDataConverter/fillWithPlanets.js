@@ -1,6 +1,6 @@
-export default function fillWithPlanets(collection) {
+export default function fillWithPlanets(collection, currentPage, itemsPerPage) {
   const newCollection = [];
-  let id = 1;
+  let id = itemsPerPage * currentPage - (itemsPerPage - 1);
 
   collection.forEach((element) => {
     const newRecord = {

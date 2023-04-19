@@ -7,19 +7,23 @@ import {
   fillWithVehicles,
 } from "src/TableDataConverter";
 
-export default function collectionLoader(collection) {
+export default function collectionLoader(
+  collection,
+  currentPage,
+  itemsPerPage
+) {
   console.log(collection);
   if (collection[0].gender) {
-    return fillWithPeople(collection);
+    return fillWithPeople(collection, currentPage, itemsPerPage);
   } else if (collection[0].rotation_period) {
-    return fillWithPlanets(collection);
+    return fillWithPlanets(collection, currentPage, itemsPerPage);
   } else if (collection[0].episode_id) {
     return fillWithFilms(collection);
   } else if (collection[0].average_height) {
-    return fillWithSpecies(collection);
+    return fillWithSpecies(collection, currentPage, itemsPerPage);
   } else if (collection[0].hyperdrive_rating) {
-    return fillWithStarships(collection);
+    return fillWithStarships(collection, currentPage, itemsPerPage);
   } else {
-    return fillWithVehicles(collection);
+    return fillWithVehicles(collection, currentPage, itemsPerPage);
   }
 }

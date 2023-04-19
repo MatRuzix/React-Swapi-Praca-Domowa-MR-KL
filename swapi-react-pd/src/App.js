@@ -15,7 +15,12 @@ const baseUrl = "https://swapi.dev/api";
 
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
-  const [itemsPerPage, setItemsPerPage] = useState(10);
+  const [itemsPerPage, setItemsPerPage] = useState(20);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [startingPage, setStartingPage] = useState(
+    Math.floor(currentPage * (itemsPerPage / 10) - (itemsPerPage / 10 - 1))
+  );
+
   useEffect(() => {
     const fetchData = async (URL) => {
       try {
@@ -42,6 +47,8 @@ function App() {
                   queryKey={key}
                   URL={value}
                   itemsPerPage={itemsPerPage}
+                  startingPage={startingPage}
+                  currentPage={currentPage}
                 />
               }
               key={key}
