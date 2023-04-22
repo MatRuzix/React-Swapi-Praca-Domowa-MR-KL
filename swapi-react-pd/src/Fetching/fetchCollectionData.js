@@ -2,19 +2,14 @@ import axios from "axios";
 
 const baseURL = "https://swapi.dev/api";
 
-const fetchCollectionData = async (
-  collectionName,
-  itemsPerPage,
-  startingPage
-) => {
-  let response = await axios.get(
-    `${baseURL}/${collectionName}/?page=${startingPage}`
-  );
+const fetchCollectionData = async (collectionName) => {
+  let response = await axios.get(`${baseURL}/${collectionName}`);
   console.log(response.data);
   let newData = response.data.results;
   let nextPage = response.data.next;
 
-  while (newData.length < itemsPerPage && nextPage !== null) {
+  while (nextPage !== null) {
+    console.log("bob");
     response = await axios.get(nextPage);
     console.log(response);
     newData = newData.concat(response.data.results);

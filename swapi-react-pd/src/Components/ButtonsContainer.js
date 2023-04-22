@@ -10,6 +10,7 @@ const ButtonsContainer = () => {
   const fetchedData = useQuery({
     queryKey: ["collections"],
     queryFn: () => fetchData(BaseUrl),
+    staleTime: 99 * 99 * 99,
   });
 
   if (fetchedData.isLoading) {

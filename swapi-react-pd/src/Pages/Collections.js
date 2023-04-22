@@ -1,5 +1,4 @@
 import ButtonsContainer from "../Components/ButtonsContainer";
-import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
 const Collections = () => {

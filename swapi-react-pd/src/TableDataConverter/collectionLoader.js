@@ -12,7 +12,6 @@ export default function collectionLoader(
   currentPage,
   itemsPerPage
 ) {
-  console.log(collection);
   if (collection[0].gender) {
     return fillWithPeople(collection, currentPage, itemsPerPage);
   } else if (collection[0].rotation_period) {
