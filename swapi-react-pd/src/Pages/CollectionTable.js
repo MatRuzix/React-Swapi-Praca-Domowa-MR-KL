@@ -5,14 +5,7 @@ import ItemsPerPageSelect from "src/Components/ItemsPerPageSelect";
 import { useState, useEffect } from "react";
 import { Button } from "@mui/material";
 import dateCorrect from "src/Data Transformation/dateCorrect";
-import {
-  Table,
-  TableHeader,
-  TableRow,
-  TableBody,
-  TableCell,
-  TableHeaderCell,
-} from "semantic-ui-react";
+import { Table } from "semantic-ui-react";
 
 export default function CollectionTable({ queryKey }) {
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -66,38 +59,42 @@ export default function CollectionTable({ queryKey }) {
       >
         previous
       </Button>
-      <Table celled className="ui celled table">
-        <TableHeader>
-          <TableRow>
-            {collection.length > 0 &&
-              Object.keys(collection[0]).map((key) => {
-                if (key !== "url") {
-                  return <TableHeaderCell key={key}>{key}</TableHeaderCell>;
-                }
-              })}
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {collection.map((element, index) => {
-            if (index < itemsPerPage) {
-              return (
-                <TableRow>
-                  {Object.entries(element).map(([key, value]) => {
-                    if (key === "created") {
-                      return (
-                        <TableCell key={key}>{dateCorrect(value)}</TableCell>
-                      );
-                    }
-                    if (key !== "url") {
-                      return <TableCell>{value}</TableCell>;
-                    }
-                  })}
-                </TableRow>
-              );
-            }
-          })}
-        </TableBody>
-      </Table>
+      <div>
+        <Table celled>
+          <Table.Header>
+            <Table.Row>
+              {collection.length > 0 &&
+                Object.keys(collection[0]).map((key) => {
+                  if (key !== "url") {
+                    return <Table.HeaderCell key={key}>{key}</Table.HeaderCell>;
+                  }
+                })}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>
+            {collection.map((element, index) => {
+              if (index < itemsPerPage) {
+                return (
+                  <Table.Row>
+                    {Object.entries(element).map(([key, value]) => {
+                      if (key === "created") {
+                        return (
+                          <Table.Cell key={key}>
+                            {dateCorrect(value)}
+                          </Table.Cell>
+                        );
+                      }
+                      if (key !== "url") {
+                        return <Table.Cell>{value}</Table.Cell>;
+                      }
+                    })}
+                  </Table.Row>
+                );
+              }
+            })}
+          </Table.Body>
+        </Table>
+      </div>
     </div>
   );
 }
