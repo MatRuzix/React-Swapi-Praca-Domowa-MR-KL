@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Select, MenuItem } from "@mui/material";
 
 export default function ItemsPerPageSelect({
   itemsPerPage,
@@ -9,12 +10,14 @@ export default function ItemsPerPageSelect({
   const itemsPerPageOptions = [10, 20, 30, 40, 50];
   const handleChange = (event) => itemsPerPageSetter(event.target.value);
   return (
-    <select value={itemsPerPageState} onChange={handleChange}>
-      {itemsPerPageOptions.map((item) => (
-        <option key={item} value={item}>
-          {item}
-        </option>
-      ))}
-    </select>
+    <div>
+      <Select value={itemsPerPageState} onChange={handleChange}>
+        {itemsPerPageOptions.map((item) => (
+          <MenuItem key={item} value={item}>
+            {item}
+          </MenuItem>
+        ))}
+      </Select>
+    </div>
   );
 }

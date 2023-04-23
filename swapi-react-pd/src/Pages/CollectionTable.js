@@ -3,6 +3,16 @@ import fetchCollectionData from "../Fetching/fetchCollectionData";
 import collectionLoader from "../TableDataConverter/collectionLoader";
 import ItemsPerPageSelect from "src/Components/ItemsPerPageSelect";
 import { useState, useEffect } from "react";
+import { Button } from "@mui/material";
+import dateCorrect from "src/Data Transformation/dateCorrect";
+import {
+  Table,
+  TableHeader,
+  TableRow,
+  TableBody,
+  TableCell,
+  TableHeaderCell,
+} from "semantic-ui-react";
 
 export default function CollectionTable({ queryKey }) {
   const [itemsPerPage, setItemsPerPage] = useState(10);
@@ -38,25 +48,56 @@ export default function CollectionTable({ queryKey }) {
         itemsPerPage={itemsPerPage}
         itemsPerPageSetter={setItemsPerPage}
       />
-      <button
+      <Button
         onClick={() => {
           setCurrentPage((prev) => prev + 1);
         }}
+        variant="contained"
+        disabled={data.length < currentPage * itemsPerPage ? true : false}
       >
         next
-      </button>
-      <button
+      </Button>
+      <Button
         onClick={() => {
           setCurrentPage((prev) => prev - 1);
         }}
+        variant="contained"
+        disabled={currentPage === 1 ? true : false}
       >
         previous
-      </button>
-      {collection.map((element, index) => {
-        if (index < itemsPerPage) {
-          return <p key={element.name}>{JSON.stringify(element)}</p>;
-        }
-      })}
+      </Button>
+      <Table celled className="ui celled table">
+        <TableHeader>
+          <TableRow>
+            {collection.length > 0 &&
+              Object.keys(collection[0]).map((key) => {
+                if (key !== "url") {
+                  return <TableHeaderCell key={key}>{key}</TableHeaderCell>;
+                }
+              })}
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {collection.map((element, index) => {
+            if (index < itemsPerPage) {
+              return (
+                <TableRow>
+                  {Object.entries(element).map(([key, value]) => {
+                    if (key === "created") {
+                      return (
+                        <TableCell key={key}>{dateCorrect(value)}</TableCell>
+                      );
+                    }
+                    if (key !== "url") {
+                      return <TableCell>{value}</TableCell>;
+                    }
+                  })}
+                </TableRow>
+              );
+            }
+          })}
+        </TableBody>
+      </Table>
     </div>
   );
 }
